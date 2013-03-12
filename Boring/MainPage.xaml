@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="Boring.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Boring"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d"
+    Tapped="Page_Tapped_1">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" DataContext="{StaticResource viewModel}">
+        <StackPanel>
+            <Border BorderBrush="Beige" BorderThickness="1" Margin="0,50,0,50" HorizontalAlignment="Center">
+                <StackPanel Margin="20" Width="600" >
+                    <TextBlock Text="{Binding BugCount, Converter={StaticResource stringFormatValueConverter}, ConverterParameter='Count: {0}'}"/>
+                    <Slider Style="{StaticResource countStyle}" Value="{Binding BugCount, Mode=TwoWay}"></Slider>
+                    <TextBlock Text="{Binding BugSpeedMax, Converter={StaticResource speedTextConverter}, ConverterParameter='Speed: {0}'}"/>
+                    <Slider Style="{StaticResource speedStyle}" Value="{Binding BugSpeedMax, Mode=TwoWay}"></Slider>
+                    <TextBlock Text="{Binding BugFadeAway, Converter={StaticResource fadeAwayTextConverter}, ConverterParameter='Fade Away: {0}'}" />
+                    <Slider Style="{StaticResource fadeAwayStyle}" Value="{Binding BugFadeAway, Mode=TwoWay}"></Slider>
+                    <TextBlock Text="{Binding BugMode, Converter={StaticResource bugModeTextConverter}, ConverterParameter='Bug Mode: {0}'}"/>
+                    <Slider Style="{StaticResource bugModeStyle}" Value="{Binding BugMode, Mode=TwoWay, Converter={StaticResource bugModeConverter}}"></Slider>
+                    <CheckBox IsChecked="{Binding ShowFPS, Mode=TwoWay}" Content="{Binding ShowFPS, Converter={StaticResource showFPSToString}}"></CheckBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Beige" BorderThickness="1" Margin="0,50,0,50" HorizontalAlignment="Center">
+                <StackPanel Margin="20" Width="600" >
+                    <Grid HorizontalAlignment="Center" Width="600">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Primitives:RadSlideHubTile Grid.Column="0" x:Name="countTile" HorizontalAlignment="Stretch" Width="Auto" Height="{StaticResource TileHeight}" Primitives:HubTileService.GroupTag="Top1" Tapped="Tile_Tapped_1" 
+            			Opacity="{Binding SelectedTile, ConverterParameter=countTile, Converter={StaticResource selectedTileOpacity}}">
+                                <Primitives:RadSlideHubTile.TopContent>
+                                    <TextBlock Text="{Binding BugCount, ConverterParameter=Count: \{0\}, Converter={StaticResource stringFormatValueConverter}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="22" FontWeight="Light" Margin="12,12,12,12"/>
+                                </Primitives:RadSlideHubTile.TopContent>
+                                <Primitives:RadSlideHubTile.BottomContent>
+                                    <Image Source="Assets/BadgeLogo.png" />
+                                </Primitives:RadSlideHubTile.BottomContent>
+                            </Primitives:RadSlideHubTile>
+                            <Primitives:RadCustomHubTile Grid.Column="1" x:Name="speedTile" HorizontalAlignment="Stretch" Width="Auto" Height="{StaticResource TileHeight}" Background="#FFED1591" Primitives:HubTileService.GroupTag="Top2" Tapped="Tile_Tapped_1" 
+            			Opacity="{Binding SelectedTile, ConverterParameter=speedTile, Converter={StaticResource selectedTileOpacity}}">
+                                <Primitives:RadCustomHubTile.FrontContent>
+                                    <TextBlock Text="{Binding BugSpeedMax, ConverterParameter=Speed: \{0\}, Converter={StaticResource speedTextConverter}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="22" FontWeight="Light" Margin="12,12,12,12"/>
+                                </Primitives:RadCustomHubTile.FrontContent>
+                                <Primitives:RadCustomHubTile.BackContent>
+                                    <Image Source="Assets/BadgeLogo.png"  />
+                                </Primitives:RadCustomHubTile.BackContent>
+                            </Primitives:RadCustomHubTile>
+                        </Grid>
+                        <Grid Grid.Row="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="50*"/>
+                            </Grid.ColumnDefinitions>
+                            <Primitives:RadSlideHubTile Grid.Column="0" x:Name="fadeAwayTile" Width="196" Height="{StaticResource TileHeight}" Primitives:HubTileService.GroupTag="Bottom1" Background="#FF259FD9" Tapped="Tile_Tapped_1" 
+            			Opacity="{Binding SelectedTile, ConverterParameter=fadeAwayTile, Converter={StaticResource selectedTileOpacity}}">
+                                <Primitives:RadSlideHubTile.TopContent>
+                                    <TextBlock Text="{Binding BugFadeAway, ConverterParameter=Fade Away: \{0\}, Converter={StaticResource fadeAwayTextConverter}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="22" FontWeight="Light" Margin="12,12,12,12"/>
+                                </Primitives:RadSlideHubTile.TopContent>
+                                <Primitives:RadSlideHubTile.BottomContent>
+                                    <Image Source="Assets/BadgeLogo.png"  />
+                                </Primitives:RadSlideHubTile.BottomContent>
+                            </Primitives:RadSlideHubTile>
+                            <Primitives:RadCustomHubTile Grid.Column="1" x:Name="bugModeTile" Width="196" Height="{StaticResource TileHeight}" Primitives:HubTileService.GroupTag="Bottom2" Background="#FFD9A125" Tapped="Tile_Tapped_1" 
+            			Opacity="{Binding SelectedTile, ConverterParameter=bugModeTile, Converter={StaticResource selectedTileOpacity}}">
+                                <Primitives:RadCustomHubTile.FrontContent>
+                                    <TextBlock Text="{Binding BugMode, ConverterParameter=Mode: \{0\}, Converter={StaticResource bugModeTextConverter}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="22" FontWeight="Light" Margin="12,12,12,12"/>
+                                </Primitives:RadCustomHubTile.FrontContent>
+                                <Primitives:RadCustomHubTile.BackContent>
+                                    <Image Source="Assets/BadgeLogo.png"  />
+                                </Primitives:RadCustomHubTile.BackContent>
+                            </Primitives:RadCustomHubTile>
+                            <Primitives:RadSlideHubTile Grid.Column="2" x:Name="showFPSTile" Width="196" Height="{StaticResource TileHeight}" Primitives:HubTileService.GroupTag="Bottom3" Tapped="Tile_Tapped_1" 
+            			Opacity="{Binding SelectedTile, ConverterParameter=showFPSTile, Converter={StaticResource selectedTileOpacity}}">
+                                <Primitives:RadSlideHubTile.TopContent>
+                                    <TextBlock Text="{Binding ShowFPS, Converter={StaticResource showFPSToString}}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="22" FontWeight="Light" Margin="12,12,12,12"/>
+                                </Primitives:RadSlideHubTile.TopContent>
+                                <Primitives:RadSlideHubTile.BottomContent>
+                                    <Image Source="Assets/BadgeLogo.png"  />
+                                </Primitives:RadSlideHubTile.BottomContent>
+                            </Primitives:RadSlideHubTile>
+                        </Grid>
+                        <Border Grid.Row="2" Margin="5" Visibility="{Binding SelectedTile, Converter={StaticResource visibilityConverter}}" >
+                            <StackPanel>
+                                <TextBlock x:Name="valueText" HorizontalAlignment="Left" FontSize="22" FontWeight="Light" />
+                                <Slider x:Name="valueSlider" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

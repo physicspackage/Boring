@@ -1,0 +1,73 @@
+﻿<Application
+    x:Class="Boring.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Boring"
+    xmlns:utility="using:WindowsStore.FalafelUtility">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!-- 
+                    Styles that define common aspects of the platform look and feel
+                    Required by Visual Studio project and item templates
+                 -->
+                <ResourceDictionary Source="Common/StandardStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <x:Double x:Key="TileHeight">60</x:Double>
+            <local:BugModeConverter x:Key="bugModeConverter" />
+            <local:BugModeTextConverter x:Key="bugModeTextConverter" />
+            <local:SpeedTextConverter x:Key="speedTextConverter" />
+            <local:FadeAwayTextConverter x:Key="fadeAwayTextConverter" />
+            <local:ShowFPSToString x:Key="showFPSToString" />
+            <local:SelectedTileOpacity x:Key="selectedTileOpacity" />
+            <utility:StringFormatValueConverter x:Key="stringFormatValueConverter" />
+            <utility:VisibilityConverter x:Key="visibilityConverter" />
+            <utility:VisibilityConverter x:Key="inVisibilityConverter" Inverse="True" />
+
+            <local:ViewModel x:Key="viewModel" />
+
+            <Style x:Key="countStyle" TargetType="Slider">
+                <Setter Property="Minimum" Value="1"/>
+                <Setter Property="Maximum" Value="12000"/>
+                <Setter Property="IsThumbToolTipEnabled" Value="False"/>
+            </Style>
+            <Style x:Key="speedStyle" TargetType="Slider">
+                <Setter Property="Minimum" Value="2"/>
+                <Setter Property="Maximum" Value="7"/>
+                <Setter Property="IsThumbToolTipEnabled" Value="False"/>
+            </Style>
+            <Style x:Key="fadeAwayStyle" TargetType="Slider">
+                <Setter Property="Minimum" Value="0"/>
+                <Setter Property="Maximum" Value="10"/>
+                <Setter Property="IsThumbToolTipEnabled" Value="False"/>
+            </Style>
+            <Style x:Key="bugModeStyle" TargetType="Slider">
+                <Setter Property="Minimum" Value="0"/>
+                <Setter Property="Maximum" Value="2"/>
+                <Setter Property="IsThumbToolTipEnabled" Value="False"/>
+            </Style>
+            <Style x:Key="showFPSStyle" TargetType="Slider">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+
+            <Binding x:Key="countBinding" Path="BugCount" Mode="TwoWay" />
+            <Binding x:Key="countTextBinding" Path="BugCount" Converter="{StaticResource stringFormatValueConverter}" ConverterParameter="Count: {0}" />
+
+            <Binding x:Key="speedBinding" Path="BugSpeedMax" Mode="TwoWay" />
+            <Binding x:Key="speedTextBinding" Path="BugSpeedMax" Converter="{StaticResource speedTextConverter}" ConverterParameter="Speed: {0}" />
+
+            <Binding x:Key="fadeAwayBinding" Path="BugFadeAway" Mode="TwoWay" />
+            <Binding x:Key="fadeAwayTextBinding" Path="BugFadeAway" Converter="{StaticResource fadeAwayTextConverter}" ConverterParameter="Fade Away: {0}" />
+
+            <Binding x:Key="bugModeBinding" Path="BugMode" Converter="{StaticResource bugModeConverter}" Mode="TwoWay" />
+            <Binding x:Key="bugModeTextBinding" Path="BugMode" Converter="{StaticResource bugModeTextConverter}" ConverterParameter="Bug Mode: {0}" />
+
+            <Binding x:Key="showFPSBinding" />
+            <Binding x:Key="showFPSTextBinding" Path="ShowFPS" Converter="{StaticResource showFPSToString}" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
